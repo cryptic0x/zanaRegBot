@@ -36,6 +36,9 @@ scope = [
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
 client = gspread.authorize(creds)
+
+
+sheet = client.open_by_key("1M4KVNDjfpsb1FU4ESysaDlbj5mFjU3_3i-p5RmFkuAU").sheet1
 sheet = client.open(SHEET_NAME).sheet1
 
 # ===== BOT STATES =====
