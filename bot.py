@@ -1,6 +1,7 @@
 import os
 import re
 import gspread
+import json
 from dotenv import load_dotenv
 from datetime import datetime
 from telegram import Update
@@ -16,6 +17,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 load_dotenv()
 
+creds_dict = json.loads(os.getenv("GOOGLE_CREDENTIALS_JSON"))
+
+
 # ===== CONFIG =====
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 SHEET_NAME = "UID Verification"
@@ -26,9 +30,7 @@ scope = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "credentials.json", scope
-)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
 client = gspread.authorize(creds)
 sheet = client.open(SHEET_NAME).sheet1
