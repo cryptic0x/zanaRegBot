@@ -1,5 +1,6 @@
 import os
 import re
+import base64
 import gspread
 import json
 from dotenv import load_dotenv
@@ -17,7 +18,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 load_dotenv()
 
-creds_dict = json.loads(os.getenv("GOOGLE_CREDENTIALS_JSON"))
+creds_dict = json.loads(
+    base64.b64decode(os.getenv("GOOGLE_CREDENTIALS_JSON_BASE64")).decode()
+)
 
 
 # ===== CONFIG =====
